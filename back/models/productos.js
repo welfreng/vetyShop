@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const productosSchema = mongoose.Schema({
     nombre:{
         type: String,
-        required: [true, 'Por favor registra el nombre de Producto.'],
+        required: [true, 'Por favor registra el nombre del Producto.'],
         trim: true,
         maxLength: [120,'El nombre del Producto no debe exceder los 120 caracteres.']
     },

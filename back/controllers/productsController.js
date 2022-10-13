@@ -89,6 +89,7 @@ function verProductos(){
 }
 
 //verProductos();
+
 //ver por id
 function verProductosPorId(id){
     fetch('http://127.0.0.1:4000/api/producto/'+id)
