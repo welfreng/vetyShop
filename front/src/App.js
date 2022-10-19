@@ -5,7 +5,7 @@ import { Footer } from './components/layout/Footer';
 import Home from './components/Home';
 
 //Router traido desde react-router-dom (no confundir con el de express)
-import { BrowserRouter as Router, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
 
           </Routes>
         </div>
-        <Home />
+       
         <Footer />
     </div>
     </Router>
