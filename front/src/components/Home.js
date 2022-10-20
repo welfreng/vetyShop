@@ -1,95 +1,57 @@
 import React, { Fragment, useEffect } from 'react'
 import MetaData from './layout/MetaData'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../actions/productActions'
+import {Link} from 'react-router-dom'
+import { useAlert} from 'react-alert'
 
 export const Home = () => {
+
+    const { loading, productos, error } = useSelector(state => state.products)
+    const alert= useAlert();
     const dispatch = useDispatch();
-    useEffect(()=>{
+    useEffect(() => {
+        if (error){
+            return alert.error(error)
+        }
         dispatch(getProducts());
+        alert.success("OK")
     }, [dispatch])
-  return (
-    <Fragment>
+    return (
+        <Fragment>
+            {loading ? <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i> : (
+                <Fragment>
+                    <MetaData title='Bienvenido a nuestra tienda'></MetaData>
 
-            <MetaData title='Bienvenido a nuestra tienda'></MetaData>
-
-        <h1 id= 'encabezado_productos'> Ultimos productos</h1>
+                    <h1 id='encabezado_productos'> Ultimos productos</h1>
 
 
-        <section id ='productos' className= 'container mt-5'>
-            <div className='row'> 
-            {/*produtco 1 */}
-                <div className= 'col-sm-12 col-md-6 col-lg-3 my-3'>
-                    <div className='card p-3 roubded'>
-                        <img className='card-img-top mx-auto' src="./images/nutra_gold.avif" alt="Nutra gold" />
-                        <div className='card-body d-flex flex-column'>
-                            <h5 id='titulo_producto'><a href="http://localhost:3000"> Nutra Gold Holistic Gatos</a></h5>
-                            <div className = 'rating mt-auto'>
-                                <div className='rating-outer'>
-                                    <div className="rating-inner"></div>
+                    <section id='productos' className='container mt-5'>
+                        <div className='row'>
+                            {productos && productos.map(producto => (
+                                <div key={producto._id} className='col-sm-12 col-md-6 col-lg-3 my-3'>
+                                    <div className='card p-3 roubded'>
+                                        <img className='card-img-top mx-auto' src={producto.imagen[0].url} alt={producto.imagen[0].public_id} />
+                                        <div className='card-body d-flex flex-column'>
+                                            <h5 id='titulo_producto'><Link to={`/producto/${producto._id}`}> {producto.nombre}</Link></h5>
+                                            <div className='rating mt-auto'>
+                                                <div className='rating-outer'>
+                                                    <div className="rating-inner" style={{ width: `${(producto.calificacion / 5) * 100}%` }}></div>
 
-                                </div>
-                                <span id="No_de_opinioines"> 5 reviews</span>
-                            </div>
-                            <p className="card-text">$72.000</p><a href="http://localhost:3000" className="btn-btn-block" id="view_btn">Ver Detalles</a>
+                                                </div>
+                                                <span id="No_de_opinioines"> {producto.numCalificaciones} Reviews</span>
+                                            </div>
+                                            <p className="card-text">${producto.precio}</p><Link to={`/producto/${producto._id}`} className="btn-btn-block" id="view_btn">Ver Detalles</Link>
+                                        </div>
+                                    </div>
+                                </div>))}
                         </div>
-                    </div>
-                </div>
-                {/*produtco 2 */}
-                <div className= 'col-sm-12 col-md-6 col-lg-3 my-3'>
-                    <div className='card p-3 roubded'>
-                        <img className='card-img-top mx-auto' src="./images/nutra-nuggets-mantenimiento.webp" alt="Nutra nugget" />
-                        <div className='card-body d-flex flex-column'>
-                            <h5 id='titulo_producto'><a href="http://localhost:3000"> Nutra Nuggets Mantimiento</a></h5>
-                            <div className = 'rating mt-auto'>
-                                <div className='rating-outer'>
-                                    <div className="rating-inner"></div>
+                    </section>
+                    </Fragment>
+                    )}
+                
+                </Fragment>
+            )
+            }
 
-                                </div>
-                                <span id="No_de_opinioines"> 2 reviews</span>
-                            </div>
-                            <p className="card-text">$52.000</p><a href="http://localhost:3000" className="btn-btn-block" id="view_btn">Ver Detalles</a>
-                        </div>
-                    </div>
-                </div>
-                {/*produtco 3 */}
-                <div className= 'col-sm-12 col-md-6 col-lg-3 my-3'>
-                    <div className='card p-3 roubded'>
-                        <img className='card-img-top mx-auto' src="./images/nutra_red.avif" alt="Nutra red" />
-                        <div className='card-body d-flex flex-column'>
-                            <h5 id='titulo_producto'><a href="http://localhost:3000"> Nutra Red</a></h5>
-                            <div className = 'rating mt-auto'>
-                                <div className='rating-outer'>
-                                    <div className="rating-inner"></div>
-
-                                </div>
-                                <span id="No_de_opinioines"> 12 reviews</span>
-                            </div>
-                            <p className="card-text">$80.000</p><a href="http://localhost:3000" className="btn-btn-block" id="view_btn">Ver Detalles</a>
-                        </div>
-                    </div>
-                </div>
-                {/*produtco 4 */}
-                <div className= 'col-sm-12 col-md-6 col-lg-3 my-3'>
-                    <div className='card p-3 roubded'>
-                        <img className='card-img-top mx-auto' src="./images/nutra_green.jpg" alt="Nutra green" />
-                        <div className='card-body d-flex flex-column'>
-                            <h5 id='titulo_producto'><a href="http://localhost:3000"> Nutra Green</a></h5>
-                            <div className = 'rating mt-auto'>
-                                <div className='rating-outer'>
-                                    <div className="rating-inner"></div>
-
-                                </div>
-                                <span id="No_de_opinioines"> 8 reviews</span>
-                            </div>
-                            <p className="card-text">$74.000</p><a href="http://localhost:3000" className="btn-btn-block" id="view_btn">Ver Detalles</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </Fragment>
-  )
-}
-
-export default Home
+            export default Home
