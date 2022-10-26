@@ -1,9 +1,9 @@
 import { ALL_PRODUCTS_REQUEST, 
        ALL_PRODUCTS_SUCCESS,
        ALL_PRODUCTS_FAIL,
-        PRODUCTS_DETAILS_REQUEST,
-        PRODUCTS_DETAILS_SUCCESS,
-        PRODUCTS_DETAILS_FAIL,
+        PRODUCT_DETAILS_REQUEST,
+        PRODUCT_DETAILS_SUCCESS,
+        PRODUCT_DETAILS_FAIL,
         CLEAR_ERRORS
     
     } from "../constants/productConstants";    
@@ -42,18 +42,18 @@ import { ALL_PRODUCTS_REQUEST,
         //REDUCER PARA TENER TODOS LOS DETALLES
         export const productDetailsReducer = (state ={product: {}}, action) =>{
             switch(action.type){
-                case PRODUCTS_DETAILS_REQUEST:
+                case PRODUCT_DETAILS_REQUEST:
                     return{
                         ...state,
                         loading:true
                        
                     }
-                case PRODUCTS_DETAILS_SUCCESS:
+                case PRODUCT_DETAILS_SUCCESS:
                     return{
                         loading: false,
-                        productos:action.payload.product
+                        product:action.payload
                     }
-                case PRODUCTS_DETAILS_FAIL:
+                case PRODUCT_DETAILS_FAIL:
                     return{
                         ...state,
                         error:action.payload
