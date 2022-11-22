@@ -41,7 +41,7 @@ nav {
     margin-right: 35%;
 }
 
-#search_field {
+f #search_field {
     height: 2.4rem;
     padding: 1rem;
 }
@@ -506,11 +506,12 @@ footer {
 
 .sidebar-wrapper {
     display: flex;
-    width: 100%;
+    width: 200px;
     align-items: stretch;
     min-height: 100vh;
     font-weight: normal;
     margin-top: 0;
+    margin-left: -85px;
     height: 100%;
     left: 0;
     top: 0;
@@ -526,7 +527,7 @@ footer {
 }
 
 #sidebar.active {
-    margin-left: -250px;
+    margin-left: 0px;
 }
 
 #sidebar .sidebar-header {
